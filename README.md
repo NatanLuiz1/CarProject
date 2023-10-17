@@ -16,15 +16,15 @@ atualizar e visualizar marcas de carros, bem como criar modelos de carros e asso
 - Crie um banco de dados PostgreSQL chamado `postgres`.
 - Configure as credenciais do banco de dados em `application.properties`.
 
-  Endpoints da API
-A API oferece alguns dos seguintes endpoints:
+  # Endpoints da API
+## A API oferece alguns dos seguintes endpoints:
 
-POST /brands: Crie uma nova marca de carro.
-GET /brands: Liste todas as marcas de carro.
-POST /models: Crie um novo modelo de carro.
-GET /models: Liste todos os modelos de carro.
-POST /cars: Crie um novo carro.
-GET /cars: Liste todos carros.
+- POST /brands: Crie uma nova marca de carro.
+- GET /brands: Liste todas as marcas de carro.
+- POST /models: Crie um novo modelo de carro.
+- GET /models: Liste todos os modelos de carro.
+- POST /cars: Crie um novo carro.
+- GET /cars: Liste todos carros.
 
 Exemplos de Uso
 Você pode fornecer exemplos de solicitações HTTP (usando cURL ou qualquer outra ferramenta) para interagir com sua API. Por exemplo:
