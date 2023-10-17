@@ -2,9 +2,6 @@ package br.com.carTest.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.io.Serializable;
 
@@ -16,7 +13,6 @@ public class Brand implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private Long idBrand;
     @NotBlank
     private String brandName;
@@ -34,8 +30,4 @@ public class Brand implements Serializable {
         this.brandName = brandName;
     }
 
-    @Override
-    public String toString() {
-        return "Brand [idBrand=" + idBrand + ", brandName=" + brandName + "]";
-    }
 }
