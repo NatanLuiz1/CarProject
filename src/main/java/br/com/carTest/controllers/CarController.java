@@ -2,6 +2,7 @@ package br.com.carTest.controllers;
 
 import br.com.carTest.dtos.CarRecordDto;
 import br.com.carTest.models.Car;
+import br.com.carTest.models.CustomCarResponse;
 import br.com.carTest.services.CarService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class CarController {
         return carService.createCar(carRecordDto);
     }
     @GetMapping("/cars")
-    public ResponseEntity<List<Car>> getAllCarModels(){
+    public ResponseEntity<List<CustomCarResponse>> getAllCarModels(){
         return carService.getAllCar();
     }
     @GetMapping("/cars/{id}")

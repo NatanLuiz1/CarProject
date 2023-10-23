@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 @Entity
 @Table(name = "cars")
@@ -81,5 +82,20 @@ public class Car implements Serializable {
 
     public void setCarModel(CarModel carModel) {
         this.carModel = carModel;
+    }
+
+    public CustomCarResponse toCustomCarResponse() {
+        CustomCarResponse customCar = new CustomCarResponse();
+        customCar.setId(idCar);
+        customCar.setTimestamp_cadastro(creationTimestamp.toEpochSecond(ZoneOffset.UTC));
+        customCar.setModelo_id(carModel.getIdModel());
+        customCar.setAno(year);
+        customCar.setCombustivel(fuelType);
+        customCar.setNum_portas(portsNumber);
+        customCar.setCor(carCollor);
+        customCar.setNome_modelo(carModel.getModelName());
+        customCar.setValor(carModel.getCarValue().doubleValue());
+
+        return customCar;
     }
 }

@@ -3,6 +3,7 @@ package br.com.carTest.services;
 import br.com.carTest.dtos.CarRecordDto;
 import br.com.carTest.models.Car;
 import br.com.carTest.models.CarModel;
+import br.com.carTest.models.CustomCarResponse;
 import br.com.carTest.repositories.CarModelRepository;
 import br.com.carTest.repositories.CarRepository;
 import br.com.carTest.util.ErrorResponse;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CarService {
@@ -40,15 +42,18 @@ public class CarService {
         car.setCarModel(carModelOptional.get());
         return ResponseEntity.status(HttpStatus.CREATED).body(carRepository.save(car));
     }
-    public ResponseEntity<List<Car>> getAllCar(){
-        return ResponseEntity.status(HttpStatus.OK).body(carRepository.findAll());
+    public ResponseEntity<List<CustomCarResponse>> getAllCar(){
+        List<Car> cars = carRepository.findAll();
+        List<CustomCarResponse> customCars = mapToCustomCarResponseList(cars);
+        return ResponseEntity.status(HttpStatus.OK).body(customCars);
     }
     public ResponseEntity<Object> getCarById(@PathVariable(value="id") Long id){
         Optional<Car> car0 = carRepository.findById(id);
         if(car0.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Car not found");
         }
-        return ResponseEntity.status(HttpStatus.OK).body(car0.get());
+        CustomCarResponse customCar = car0.get().toCustomCarResponse();
+        return ResponseEntity.status(HttpStatus.OK).body(customCar);
     }
     public ResponseEntity<?> updateCar(@PathVariable(value="id") Long id,
                                             @RequestBody @Valid CarRecordDto carRecordDto){
@@ -73,6 +78,12 @@ public class CarService {
         }
         carRepository.delete(car0.get());
         return ResponseEntity.status(HttpStatus.OK).body("Car deleted sucessfully");
+    }
+    // Função que auxilia no mapeamento de uma lista de carros para CustomCarResponse
+    private List<CustomCarResponse> mapToCustomCarResponseList(List<Car> cars) {
+        return cars.stream()
+                .map(Car::toCustomCarResponse)
+                .collect(Collectors.toList());
     }
 
 }
